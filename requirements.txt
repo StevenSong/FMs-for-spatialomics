@@ -11,7 +11,7 @@ h5tree==1.0
 tables==3.9.2
 scanpy==1.9.6
 # viz tools
-matplotlib==3.9.1
+matplotlib==3.8.3
 seaborn==0.11.2
 statannotations==0.6.0
 # analysis tools

@@ -81,5 +81,8 @@ Differing inclusion criteria between the foundation models result in minor diffe
     rm /path/to/uni.h5ad
     ```
 
+### Automating feature extraction
+An example script to run all steps of the feature extraction pipeline is located at `run-extract.sh`. It should similarly be run with the conda environment activated.
+
 ### Hardware acceleration
 The above inference scripts will default to use the first available GPU, if detected. To disable or alter this behavior, the simplest method is to set the environment variable `CUDA_VISIBLE_DEVICES`. If running out of GPU memory, consider tuning the batch size with the `--batch_size` flags to the feature extraction scripts. The default batch sizes were tuned for a single `V100 16GB` GPU.
