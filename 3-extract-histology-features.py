@@ -71,7 +71,7 @@ def extract_histology(
         embeds.append(embed.to("cpu"))
     embeds = torch.concat(embeds, dim=0).numpy()
 
-    out_data = AnnData(obs=pd.DataFrame(index=adata.obs.index), obsm={"X_uni": embeds})
+    out_data = AnnData(obs=pd.DataFrame(index=adata.obs.index), obsm={"X_hist": embeds})
     out_data.write(output_h5ad)
 
 

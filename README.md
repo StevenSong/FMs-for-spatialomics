@@ -54,7 +54,7 @@ Feature extraction of expression and histology data using modality specific foun
     ```bash
     python $REPO_ROOT/2-extract-expression-features.py \
     --input_h5ad /path/to/converted.h5ad \
-    --output_h5ad /path/to/uce.h5ad \
+    --output_h5ad /path/to/expr.h5ad \
     --model uce_4 \
     --species human
     ```
@@ -63,15 +63,15 @@ Feature extraction of expression and histology data using modality specific foun
     ```bash
     python $REPO_ROOT/3-extract-histology-features.py \
     --input_h5ad /path/to/converted.h5ad \
-    --output_h5ad /path/to/uni.h5ad
+    --output_h5ad /path/to/hist.h5ad
     ```
 1. Unify features:  
 Differing inclusion criteria between the foundation models result in minor differences in which barcoded-spots actually get processed. This final step is to take the intersection of those spots for further analysis.
     ```bash
     python $REPO_ROOT/4-combine-data.py \
-    --src_h5ad /path/to/converted.h5ad \
-    --uce_h5ad /path/to/uce.h5ad \
-    --uni_h5ad /path/to/uni.h5ad \
+    --source_h5ad /path/to/converted.h5ad \
+    --expr_h5ad /path/to/expr.h5ad \
+    --hist_h5ad /path/to/hist.h5ad \
     --output_h5ad /path/to/extracted.h5ad
     ```
 1. Clean up (optional):
