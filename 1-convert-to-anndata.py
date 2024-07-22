@@ -31,7 +31,7 @@ def convert(
         Spatial data in the same format as `scanpy.read_visium` with the following differences:
         - `library_id` is simply `slide`.
         - `obs` has additional columns `pxl_col/res_in_fullres`. The values are the same as those in `obsm["spatial"]`.
-        - `uns["spatial"]["slide"]["images"]["tiles"]` contains histology tiles.
+        - `obsm["tiles"]` contains histology tiles.
 
     See Also
     --------
@@ -77,7 +77,7 @@ def convert(
         tiles.append(tile)
     tiles = np.stack(tiles)
 
-    adata.uns["spatial"]["slide"]["images"]["tiles"] = tiles
+    adata.obsm["tiles"] = tiles
     print(f"Generated {count} tiles ({padded} were padded).")
 
     return adata

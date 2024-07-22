@@ -164,3 +164,4 @@ temp*
 runs*/
 models/
 data/
+*.h5ad

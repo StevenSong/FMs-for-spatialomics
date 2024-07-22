@@ -67,7 +67,17 @@ Tool to apply RNASeq and pathology foundation models to spatial transcriptomics.
 1. Unify features:  
 Differing inclusion criteria between the foundation models result in minor differences in which barcoded-spots actually get processed. This final step is to take the intersection of those spots for further analysis.
     ```bash
-    #TODO
+    python $REPO_ROOT/4-combine-data.py \
+    --src_h5ad /path/to/converted.h5ad \
+    --uce_h5ad /path/to/uce.h5ad \
+    --uni_h5ad /path/to/uni.h5ad \
+    --output_h5ad /path/to/extracted.h5ad
+    ```
+1. Clean up (optional):
+    ```bash
+    rm /path/to/converted.h5ad
+    rm /path/to/uce.h5ad
+    rm /path/to/uni.h5ad
     ```
 
 ### Hardware acceleration

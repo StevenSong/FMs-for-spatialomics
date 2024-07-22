@@ -60,7 +60,7 @@ def extract_histology(
     model = model.to(device)
 
     adata = read_h5ad(input_h5ad)
-    ds = TileDataset(adata.uns["spatial"]["slide"]["images"]["tiles"])
+    ds = TileDataset(adata.obsm["tiles"])
 
     embeds = []
     dl = DataLoader(ds, batch_size=batch_size)
