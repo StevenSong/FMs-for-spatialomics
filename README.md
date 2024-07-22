@@ -36,6 +36,7 @@ Tool to apply RNASeq and pathology foundation models to spatial transcriptomics.
             tar -xvf $REPO_ROOT/models/UCE/model_files/protein_embeddings.tar.gz -C $REPO_ROOT/models/UCE/model_files
             ```
 ## Extract features
+Feature extraction of expression and histology data using modality specific foundation models. The following instructions extract features per capture area (which we refer to as a slide) and should be repeated for each slide of interest.
 1. Activate conda environemnt:
     ```bash
     conda activate spatialFM
