@@ -36,6 +36,7 @@ Tool to apply RNASeq and pathology foundation models to spatial transcriptomics.
             tar -xvf $REPO_ROOT/models/UCE/model_files/protein_embeddings.tar.gz -C $REPO_ROOT/models/UCE/model_files
             ```
 ## Extract features
+Feature extraction of expression and histology data using modality specific foundation models. The following instructions extract features per capture area (which we refer to as a slide) and should be repeated for each slide of interest.
 1. Activate conda environemnt:
     ```bash
     conda activate spatialFM
@@ -53,7 +54,7 @@ Tool to apply RNASeq and pathology foundation models to spatial transcriptomics.
     ```bash
     python $REPO_ROOT/2-extract-expression-features.py \
     --input_h5ad /path/to/converted.h5ad \
-    --output_h5ad /path/to/uce.h5ad \
+    --output_h5ad /path/to/expr.h5ad \
     --model uce_4 \
     --species human
     ```
@@ -62,15 +63,15 @@ Tool to apply RNASeq and pathology foundation models to spatial transcriptomics.
     ```bash
     python $REPO_ROOT/3-extract-histology-features.py \
     --input_h5ad /path/to/converted.h5ad \
-    --output_h5ad /path/to/uni.h5ad
+    --output_h5ad /path/to/hist.h5ad
     ```
 1. Unify features:  
 Differing inclusion criteria between the foundation models result in minor differences in which barcoded-spots actually get processed. This final step is to take the intersection of those spots for further analysis.
     ```bash
     python $REPO_ROOT/4-combine-data.py \
-    --src_h5ad /path/to/converted.h5ad \
-    --uce_h5ad /path/to/uce.h5ad \
-    --uni_h5ad /path/to/uni.h5ad \
+    --source_h5ad /path/to/converted.h5ad \
+    --expr_h5ad /path/to/expr.h5ad \
+    --hist_h5ad /path/to/hist.h5ad \
     --output_h5ad /path/to/extracted.h5ad
     ```
 1. Clean up (optional):
@@ -80,5 +81,12 @@ Differing inclusion criteria between the foundation models result in minor diffe
     rm /path/to/uni.h5ad
     ```
 
+### Automating feature extraction
+An example script to run all steps of the feature extraction pipeline is located at `run-extract.sh`. It should similarly be run with the conda environment activated.
+
 ### Hardware acceleration
 The above inference scripts will default to use the first available GPU, if detected. To disable or alter this behavior, the simplest method is to set the environment variable `CUDA_VISIBLE_DEVICES`. If running out of GPU memory, consider tuning the batch size with the `--batch_size` flags to the feature extraction scripts. The default batch sizes were tuned for a single `V100 16GB` GPU.
+
+## Analysis
+
+An example notebook for downstream analysis using extracted features can be found in the `evaluations` subdirectory of this repo.

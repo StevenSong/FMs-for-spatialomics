@@ -56,7 +56,7 @@ if __name__ == "__main__":
     repo_root = os.path.dirname(__file__)
 
     with tempfile.TemporaryDirectory() as tmp_dir:
-        tmp_dir = os.path.join(tmp_dir, "")
+        tmp_dir = os.path.join(tmp_dir, "")  # trailing slash necessary for UCE pipeline
         adata = read_h5ad(args.input_h5ad)
         adata.obs = pd.DataFrame(index=adata.obs.index)
         del adata.uns
@@ -84,5 +84,8 @@ if __name__ == "__main__":
             cwd=os.path.join(repo_root, "models", "UCE"),
         )
         uce_h5ad = os.path.join(tmp_dir, "tmp_uce_adata.h5ad")
-        shutil.copyfile(uce_h5ad, args.output_h5ad)
+        uce_adata = read_h5ad(uce_h5ad)
+        uce_adata.obsm["X_expr"] = uce_adata.obsm["X_uce"]
+        del uce_adata.obsm["X_uce"]
+        uce_adata.write_h5ad(args.output_h5ad)
         print(f"Moved {uce_h5ad} to {args.output_h5ad}")
